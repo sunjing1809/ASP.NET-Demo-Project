@@ -44,6 +44,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.1.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.1.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.1.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.1.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.1.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -168,26 +196,128 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610262018230_InitialModel.cs" />
+    <Compile Include="Migrations\201610262018230_InitialModel.Designer.cs">
+      <DependentUpon>201610262018230_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262045568_AddIsSubscribedToCustomer.cs" />
+    <Compile Include="Migrations\201610262045568_AddIsSubscribedToCustomer.Designer.cs">
+      <DependentUpon>201610262045568_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262244286_AddMembershipType.cs" />
+    <Compile Include="Migrations\201610262244286_AddMembershipType.Designer.cs">
+      <DependentUpon>201610262244286_AddMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262247311_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\201610262247311_PopulateMembershipTypes.Designer.cs">
+      <DependentUpon>201610262247311_PopulateMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262255557_ApplyAnnotationsToCustemerName.cs" />
+    <Compile Include="Migrations\201610262255557_ApplyAnnotationsToCustemerName.Designer.cs">
+      <DependentUpon>201610262255557_ApplyAnnotationsToCustemerName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262322468_AddNameToMembershipTypes.cs" />
+    <Compile Include="Migrations\201610262322468_AddNameToMembershipTypes.Designer.cs">
+      <DependentUpon>201610262322468_AddNameToMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262327030_AddNameToMembershipTable.cs" />
+    <Compile Include="Migrations\201610262327030_AddNameToMembershipTable.Designer.cs">
+      <DependentUpon>201610262327030_AddNameToMembershipTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262331371_AddBirthdayToCustomer.cs" />
+    <Compile Include="Migrations\201610262331371_AddBirthdayToCustomer.Designer.cs">
+      <DependentUpon>201610262331371_AddBirthdayToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262333114_populatebirthday.cs" />
+    <Compile Include="Migrations\201610262333114_populatebirthday.Designer.cs">
+      <DependentUpon>201610262333114_populatebirthday.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262354131_AddQuestionMarkforDateTime.cs" />
+    <Compile Include="Migrations\201610262354131_AddQuestionMarkforDateTime.Designer.cs">
+      <DependentUpon>201610262354131_AddQuestionMarkforDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270002343_DeleteDatebaseforUser1.cs" />
+    <Compile Include="Migrations\201610270002343_DeleteDatebaseforUser1.Designer.cs">
+      <DependentUpon>201610270002343_DeleteDatebaseforUser1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270004026_DeleteDatebaseforUser11.cs" />
+    <Compile Include="Migrations\201610270004026_DeleteDatebaseforUser11.Designer.cs">
+      <DependentUpon>201610270004026_DeleteDatebaseforUser11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270030313_AddPropertiestoMovie.cs" />
+    <Compile Include="Migrations\201610270030313_AddPropertiestoMovie.Designer.cs">
+      <DependentUpon>201610270030313_AddPropertiestoMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270035583_AddMovieGenreModel.cs" />
+    <Compile Include="Migrations\201610270035583_AddMovieGenreModel.Designer.cs">
+      <DependentUpon>201610270035583_AddMovieGenreModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270051473_ModifyMovieGenreModel.cs" />
+    <Compile Include="Migrations\201610270051473_ModifyMovieGenreModel.Designer.cs">
+      <DependentUpon>201610270051473_ModifyMovieGenreModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270055166_FixPropertiestoMovie.cs" />
+    <Compile Include="Migrations\201610270055166_FixPropertiestoMovie.Designer.cs">
+      <DependentUpon>201610270055166_FixPropertiestoMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270057478_ModifyGenreModel.cs" />
+    <Compile Include="Migrations\201610270057478_ModifyGenreModel.Designer.cs">
+      <DependentUpon>201610270057478_ModifyGenreModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270059266_FixPropertiestoMovie1.cs" />
+    <Compile Include="Migrations\201610270059266_FixPropertiestoMovie1.Designer.cs">
+      <DependentUpon>201610270059266_FixPropertiestoMovie1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270101580_PopulateDatatoGenre.cs" />
+    <Compile Include="Migrations\201610270101580_PopulateDatatoGenre.Designer.cs">
+      <DependentUpon>201610270101580_PopulateDatatoGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270111205_fixMovie.cs" />
+    <Compile Include="Migrations\201610270111205_fixMovie.Designer.cs">
+      <DependentUpon>201610270111205_fixMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270113255_fixMovie1.cs" />
+    <Compile Include="Migrations\201610270113255_fixMovie1.Designer.cs">
+      <DependentUpon>201610270113255_fixMovie1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610270119156_FixPropertytoMovie.cs" />
+    <Compile Include="Migrations\201610270119156_FixPropertytoMovie.Designer.cs">
+      <DependentUpon>201610270119156_FixPropertytoMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\ai.0.22.19-build00125.js" />
+    <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -234,6 +364,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Movies\Random.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +380,74 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610262018230_InitialModel.resx">
+      <DependentUpon>201610262018230_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262045568_AddIsSubscribedToCustomer.resx">
+      <DependentUpon>201610262045568_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262244286_AddMembershipType.resx">
+      <DependentUpon>201610262244286_AddMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262247311_PopulateMembershipTypes.resx">
+      <DependentUpon>201610262247311_PopulateMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262255557_ApplyAnnotationsToCustemerName.resx">
+      <DependentUpon>201610262255557_ApplyAnnotationsToCustemerName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262322468_AddNameToMembershipTypes.resx">
+      <DependentUpon>201610262322468_AddNameToMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262327030_AddNameToMembershipTable.resx">
+      <DependentUpon>201610262327030_AddNameToMembershipTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262331371_AddBirthdayToCustomer.resx">
+      <DependentUpon>201610262331371_AddBirthdayToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262333114_populatebirthday.resx">
+      <DependentUpon>201610262333114_populatebirthday.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262354131_AddQuestionMarkforDateTime.resx">
+      <DependentUpon>201610262354131_AddQuestionMarkforDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270002343_DeleteDatebaseforUser1.resx">
+      <DependentUpon>201610270002343_DeleteDatebaseforUser1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270004026_DeleteDatebaseforUser11.resx">
+      <DependentUpon>201610270004026_DeleteDatebaseforUser11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270030313_AddPropertiestoMovie.resx">
+      <DependentUpon>201610270030313_AddPropertiestoMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270035583_AddMovieGenreModel.resx">
+      <DependentUpon>201610270035583_AddMovieGenreModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270051473_ModifyMovieGenreModel.resx">
+      <DependentUpon>201610270051473_ModifyMovieGenreModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270055166_FixPropertiestoMovie.resx">
+      <DependentUpon>201610270055166_FixPropertiestoMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270057478_ModifyGenreModel.resx">
+      <DependentUpon>201610270057478_ModifyGenreModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270059266_FixPropertiestoMovie1.resx">
+      <DependentUpon>201610270059266_FixPropertiestoMovie1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270101580_PopulateDatatoGenre.resx">
+      <DependentUpon>201610270101580_PopulateDatatoGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270111205_fixMovie.resx">
+      <DependentUpon>201610270111205_fixMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270113255_fixMovie1.resx">
+      <DependentUpon>201610270113255_fixMovie1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610270119156_FixPropertytoMovie.resx">
+      <DependentUpon>201610270119156_FixPropertytoMovie.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
