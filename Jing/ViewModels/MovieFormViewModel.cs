@@ -10,7 +10,7 @@ namespace Jing.ViewModels
     public class MovieFormViewModel
     {
         public IEnumerable<Genre> Genres { get; set; }
-        public int? Id { get; set; }   
+        public int? Id { get; set; }
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
