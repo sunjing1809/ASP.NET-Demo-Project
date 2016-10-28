@@ -22,6 +22,7 @@ namespace Jing.Models
         public byte MembershipTypeId { get; set; }
 
         [Display(Name = "Date of Birth")]
+        [Min18YearsValidation]
         public DateTime? Birthday { get; set; }
 
     }
