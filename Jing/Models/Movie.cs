@@ -23,6 +23,7 @@ namespace Jing.Models
         public DateTime DateAdded { get; set; }
 
         [Display(Name="Number in Stock")]
+        [Range(1,20)]
         public int NumberInStock { get; set; }
        
     }
