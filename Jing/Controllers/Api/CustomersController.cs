@@ -27,20 +27,21 @@ namespace Jing.Controllers.Api
         }
 
         //GET /api/customers/1
-        public CustomerDto GetCustomers(int id)
+        public IHttpActionResult GetCustomers(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            return Mapper.Map<Customer,CustomerDto>(customer);
+                return NotFound();
+
+            return Ok(Mapper.Map<Customer,CustomerDto>(customer));
         }
 
         //POST /api/customers
         [HttpPost]
-        public CustomerDto CreateCustomer(CustomerDto customerDto)
+        public IHttpActionResult CreateCustomer(CustomerDto customerDto)
         {
-            if(!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
             _context.Customers.Add(customer);
@@ -48,7 +49,7 @@ namespace Jing.Controllers.Api
 
             customerDto.Id = customer.Id;
 
-            return customerDto;
+            return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerDto);
 
         }
 
