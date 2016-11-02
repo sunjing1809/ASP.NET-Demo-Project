@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Jing.Dtos;
-using Jing.Models;
+﻿using Jing.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,69 +19,62 @@ namespace Jing.Controllers.Api
         }
         
         //GET /api/customers
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
-            return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            return _context.Customers.ToList();
         }
 
         //GET /api/customers/1
-        public IHttpActionResult GetCustomers(int id)
+        public Customer GetCustomers(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customer == null)
-                return NotFound();
-
-            return Ok(Mapper.Map<Customer,CustomerDto>(customer));
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            return customer;
         }
 
         //POST /api/customers
         [HttpPost]
-        public IHttpActionResult CreateCustomer(CustomerDto customerDto)
+        public Customer CreateCustomer(Customer customer)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
+            if(!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
-            customerDto.Id = customer.Id;
-
-            return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerDto);
+            return customer;
 
         }
 
         //Put  /api/customers/1
         [HttpPut]
-        public IHttpActionResult UpdateCustomer(int id, CustomerDto customerDto)
+        public void UpdateCustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                throw new HttpResponseException(HttpStatusCode.NotFound);
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
-
-            if (customerInDb == null)
-                return NotFound();
-
-            Mapper.Map<CustomerDto, Customer>(customerDto, customerInDb);
+            
+            if(customerInDb == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            customerInDb.Name = customer.Name;
+            customerInDb.Birthday = customer.Birthday;
+            customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            customerInDb.MembershipTypeId = customer.MembershipTypeId;
 
             _context.SaveChanges();
-
-            return Ok();
         }
 
         //Delete /api/customers/1
         [HttpDelete]
-        public IHttpActionResult DeleteCustomer(int id)
+        public void DeleteCustomer(int id)
         {
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customerInDb == null)
-                return NotFound();
+                throw new HttpResponseException(HttpStatusCode.NotFound);
 
             _context.Customers.Remove(customerInDb);
 
             _context.SaveChanges();
-
-            return Ok();
 
         }
 
