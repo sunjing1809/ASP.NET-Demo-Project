@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Jing.Dtos;
-using Jing.Models;
+﻿using Jing.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,40 +19,36 @@ namespace Jing.Controllers.Api
         }
         
         //GET /api/customers
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
-            return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            return _context.Customers.ToList();
         }
 
         //GET /api/customers/1
-        public CustomerDto GetCustomers(int id)
+        public Customer GetCustomers(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            return Mapper.Map<Customer,CustomerDto>(customer);
+            return customer;
         }
 
         //POST /api/customers
         [HttpPost]
-        public CustomerDto CreateCustomer(CustomerDto customerDto)
+        public Customer CreateCustomer(Customer customer)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-
-            var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
-            customerDto.Id = customer.Id;
-
-            return customerDto;
+            return customer;
 
         }
 
         //Put  /api/customers/1
         [HttpPut]
-        public void UpdateCustomer(int id, CustomerDto customerDto)
+        public void UpdateCustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -62,8 +56,10 @@ namespace Jing.Controllers.Api
             
             if(customerInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-
-            Mapper.Map<CustomerDto, Customer>(customerDto, customerInDb);
+            customerInDb.Name = customer.Name;
+            customerInDb.Birthday = customer.Birthday;
+            customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            customerInDb.MembershipTypeId = customer.MembershipTypeId;
 
             _context.SaveChanges();
         }
